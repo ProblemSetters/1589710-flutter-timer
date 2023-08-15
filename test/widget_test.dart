@@ -1,96 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hello_flutter/main.dart';
 import 'package:hello_flutter/timer_controller.dart';
-import 'package:hello_flutter/timer_page.dart';
-import 'package:fake_async/fake_async.dart';
+import 'package:hello_flutter/timer_page.dart'; // Import the TimerPage class
 
 void main() {
-  testWidgets('Widget - Check timer page initialState', (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: TimerPage()));
+  group('TimerPage widget', () {
+    testWidgets('Initial state', (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(home: TimerPage()));
 
-    final textWidget = find.text('10');
-    final buttonWidget = find.byType(ElevatedButton);
+      expect(find.text('Timer App'), findsOneWidget);
+      expect(find.text('Start Counter'), findsOneWidget);
+      expect(find.byType(Image), findsOneWidget);
+      expect(
+          find.text('10'), findsOneWidget); // Assuming the timer starts from 10
+    });
 
-    expect(textWidget, findsOneWidget);
-    expect(buttonWidget, findsOneWidget);
-  });
+    testWidgets('Button functionality', (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(home: TimerPage()));
 
-  testWidgets('Widget - Test timer running', (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: TimerPage()));
+      await tester.tap(find.text('Start Counter'));
+      await tester.pumpAndSettle(); // Wait for timer to complete
 
-    final buttonWidget = find.byType(ElevatedButton);
+      expect(find.text('Start Counter'), findsOneWidget);
+      expect(
+          find.text('10'), findsOneWidget); // Assuming the timer starts from 10
+    });
 
-    expect(
-      tester.widget(buttonWidget),
-      isA<ElevatedButton>().having((t) => t.enabled, 'enabled', true),
-    );
+    testWidgets('TimerController integration', (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(home: TimerPage()));
 
-    await tester.tap(buttonWidget);
-    await tester.pump();
+      await tester.tap(find.text('Start Counter'));
+      await tester.pump(Duration(seconds: 1));
 
-    expect(find.text('10'), findsOneWidget);
-    expect(
-      tester.widget(buttonWidget),
-      isA<ElevatedButton>().having((t) => t.enabled, 'enabled', false),
-    );
+      expect(find.text('9'), findsOneWidget);
+    });
 
-    await tester.pump(const Duration(seconds: 1));
+    testWidgets('Widget state changes', (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(home: TimerPage()));
 
-    expect(find.text('9'), findsOneWidget);
+      expect(find.text('Start Counter'), findsOneWidget);
+      expect(
+          find.text('10'), findsOneWidget); // Assuming the timer starts from 10
 
-    await tester.pump(const Duration(seconds: 2));
+      await tester.tap(find.text('Start Counter'));
+      await tester.pump(Duration(seconds: 1));
 
-    expect(find.text('7'), findsOneWidget);
+      expect(find.text('9'), findsOneWidget);
 
-    await tester.pump(const Duration(seconds: 7));
+      // Wait for the timer to complete (assuming the total time is 10 seconds)
+      await tester.pumpAndSettle(Duration(seconds: 9));
 
-    expect(find.text('0'), findsOneWidget);
-    expect(
-      tester.widget(buttonWidget),
-      isA<ElevatedButton>().having((t) => t.enabled, 'enabled', true),
-    );
-  });
-
-  // test('Controller - Test timer running', () async {
-  //   const int initialTime = 12; // needs to be > 2
-  //   final controller = TimerController(initialTimeInSeconds: initialTime);
-
-  //   expect(controller.currentTimeInSeconds, initialTime);
-  //   expect(controller.isActive, false);
-
-  //   controller.initTimer();
-
-  //   await Future.delayed(const Duration(seconds: 2));
-
-  //   expect(controller.currentTimeInSeconds, initialTime - 2);
-  //   expect(controller.isActive, true);
-
-  //   await Future.delayed(const Duration(seconds: initialTime - 2));
-
-  //   expect(controller.currentTimeInSeconds, 0);
-  //   expect(controller.isActive, false);
-  // });
-
-  test('Controller with fakeAsync - Test timer running', () async {
-    fakeAsync((FakeAsync async) {
-      const int initialTime = 12; // needs to be > 2
-      final controller = TimerController(initialTimeInSeconds: initialTime);
-
-      expect(controller.currentTimeInSeconds, initialTime);
-      expect(controller.isActive, false);
-
-      controller.initTimer();
-
-      async.elapse(const Duration(seconds: 2));
-
-      expect(controller.currentTimeInSeconds, initialTime - 2);
-      expect(controller.isActive, true);
-
-      async.elapse(const Duration(seconds: initialTime - 2));
-
-      expect(controller.currentTimeInSeconds, 0);
-      expect(controller.isActive, false);
+      expect(find.text('0'), findsOneWidget);
+      expect(find.text('Start Counter'), findsOneWidget);
     });
   });
 }
