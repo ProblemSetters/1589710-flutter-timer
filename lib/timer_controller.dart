@@ -28,11 +28,7 @@ class TimerController extends ChangeNotifier {
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (timer) {
-        currentTimeInSeconds = currentTimeInSeconds - 1;
-        notifyListeners();
-        if (currentTimeInSeconds == 0) {
-          _timer?.cancel();
-        }
+        //add your code
       },
     );
   }

@@ -57,26 +57,7 @@ class _TimerPageState extends State<TimerPage> {
             ),
           ),
           SizedBox(height: 30),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  timerController.currentTimeInSeconds.toString(),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 48),
-                ),
-                const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: timerController.isActive
-                      ? null
-                      : timerController.initTimer,
-                  child: const Text('Start Counter'),
-                ),
-              ],
-            ),
-          ),
+          //add your code
         ],
       ),
     ));
