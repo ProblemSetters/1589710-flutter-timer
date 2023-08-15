@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hello_flutter/timer_controller.dart';
+
 import 'package:hello_flutter/timer_page.dart'; // Import the TimerPage class
 
 void main() {
