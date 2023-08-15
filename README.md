@@ -6,7 +6,7 @@
 
 ## Application Demo:
 
-![](https://camo.githubusercontent.com/227cc79a6575a12361346c04a977641c3ba2320bf7a4d77aba4610c07204e263/68747470733a2f2f687263646e2e6e65742f73335f7075622f697374726565742d6173736574732f3946714c6856777542485043477a44465961675255412f656469742d70726f66696c652e676966)
+![](https://hrcdn.net/s3_pub/istreet-assets/6SjTTo1yoL227IfOvm3BOA/flutter-timer_AdobeExpress.gif)
 
 ## Functionality Requirements
 
