@@ -12,7 +12,7 @@
 
 Create a timer app, as shown above. Application requirements are given below, and the finished application must pass all of the unit tests.
 
-Your task is to complete the implementation of `lib/timer_page.dart` according to the following requirements:
+Task 1 is to complete the implementation of `lib/timer_page.dart` according to the following requirements:
 
 - The app consists of one view:
   - In the view
@@ -20,6 +20,10 @@ Your task is to complete the implementation of `lib/timer_page.dart` according t
     - display the Start button
   - Clicking on the start button, the timer should start decreasing.
     - the timer should only stop at 0.
+
+Task 2 is to complete the implementation of `lib/timer_controller.dart` according to the following requirements:
+
+- Fill in the \_timer code to periodically decrease the value by 1 in every 1 second and stop at 0
 
 Initially, the file is filled with boilerplate code.
 
